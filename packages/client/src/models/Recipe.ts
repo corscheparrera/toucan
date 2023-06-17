@@ -1,4 +1,4 @@
 export interface Recipe {
-    isComplete: boolean
+    starred: boolean
     description: string
   }

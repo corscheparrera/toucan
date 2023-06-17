@@ -3,7 +3,6 @@ import React from "react";
 import PlusIcon from "../../../assets/icons/plus-button.svg";
 import { Recipe } from "../../../models/Recipe";
 import Button from "../../atoms/Button/index";
-import CheckBox from "../../atoms/CheckBox/index";
 import Image from "../../atoms/Image/index";
 import Input from "../../atoms/Input/index";
 import List from "../../molecules/List/index";
@@ -14,23 +13,24 @@ interface IProps {
   className?: string;
   recipeList: Array<Recipe>;
   addRecipe(event: React.FormEvent<HTMLButtonElement>): void;
-  onInputChange(index: number, { isComplete }: Recipe, event: React.ChangeEvent<HTMLInputElement>): void;
-  onCheckBoxChange(index: number, { isComplete, description }: Recipe): void;
+  deleteRecipe(index: number): void;
+  onInputChange(index: number, { starred }: Recipe, event: React.ChangeEvent<HTMLInputElement>): void;
+  onCheckBoxChange(index: number, { starred, description }: Recipe): void;
 }
 
-const RecipeList: React.FC<IProps> = ({ className, recipeList, addRecipe, onInputChange, onCheckBoxChange }) => {
+const RecipeList: React.FC<IProps> = ({ className, recipeList, addRecipe, deleteRecipe, onInputChange, onCheckBoxChange }) => {
   const classProps = classNames(className, styles["default"]);
 
   const createRecipes = () => {
     return recipeList.map((item, index) => (
       <ListItem key={index} className={styles["list-item"]}>
         <Input
-          className={classNames(styles["list-item-left"], item.isComplete ? styles["active-middle-line"] : "")}
+          className={classNames(styles["list-item-left"])}
           placeholder="Past raw recipe"
           value={item.description}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => onInputChange(index, item, event)}
         />
-        <CheckBox className={classNames(styles["list-item-right"])} value={item.isComplete} onClick={() => onCheckBoxChange(index, item)} />
+        <Button onClick={() => deleteRecipe(index)}>$ rm</Button>
       </ListItem>
     ));
   };

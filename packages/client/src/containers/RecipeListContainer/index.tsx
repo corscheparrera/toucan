@@ -7,7 +7,7 @@ interface IProps {}
 
 const RecipeListContainer: React.FC<IProps> = () => {
   const newRecipe: Recipe = {
-    isComplete: false,
+    starred: false,
     description: ""
   };
 
@@ -17,18 +17,22 @@ const RecipeListContainer: React.FC<IProps> = () => {
     recipe && recipe.actions.addRecipe(newRecipe);
   };
 
-  const onInputChange = (index: number, { isComplete }: Recipe, event: React.ChangeEvent<HTMLInputElement>): void => {
+  const deleteRecipe = (index: number): void => {
+    recipe && recipe.actions.deleteRecipe(index);
+  };
+
+  const onInputChange = (index: number, { starred }: Recipe, event: React.ChangeEvent<HTMLInputElement>): void => {
     const item = {
-      isComplete,
+      starred,
       description: event.currentTarget.value
     };
 
     recipe && recipe.actions.setRecipe(index, item);
   };
 
-  const onCheckBoxChange = (index: number, { isComplete, description }: Recipe): void => {
+  const onCheckBoxChange = (index: number, { starred, description }: Recipe): void => {
     const item = {
-      isComplete: !isComplete,
+      starred: !starred,
       description
     };
 
@@ -36,7 +40,15 @@ const RecipeListContainer: React.FC<IProps> = () => {
   };
 
   return (
-    recipe && <RecipeList recipeList={recipe.state.recipes} addRecipe={addRecipe} onInputChange={onInputChange} onCheckBoxChange={onCheckBoxChange} />
+    recipe && (
+      <RecipeList
+        recipeList={recipe.state.recipes}
+        addRecipe={addRecipe}
+        deleteRecipe={deleteRecipe}
+        onInputChange={onInputChange}
+        onCheckBoxChange={onCheckBoxChange}
+      />
+    )
   );
 };
 

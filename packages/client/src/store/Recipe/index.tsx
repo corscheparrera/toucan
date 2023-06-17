@@ -11,6 +11,7 @@ export interface IState {
 export interface IActions {
   addRecipe(value: Recipe): void;
   setRecipe(index: number, value: Recipe): void;
+  deleteRecipe(index: number): void;
 }
 
 // Represents the combination of state and actions.
@@ -45,6 +46,9 @@ class RecipeProvider extends React.Component<IRecipeProviderProps> {
       this.setState({
         recipes
       });
+    },
+    deleteRecipe: (index: number): void => {
+      this.setState({ recipes: this.state.recipes.filter((r, i) => i !== index) });
     }
   };
 

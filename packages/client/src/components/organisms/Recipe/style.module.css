@@ -20,15 +20,11 @@
   
   .list-item {
     display: flex;
+    gap: 16px;
   }
   
   .list-item-left {
     flex: 1;
     width: 100%;
-  }
-  
-  .active-middle-line {
-    text-decoration: line-through;
-    color: rgb(126, 126, 126);
   }
   
