@@ -1,0 +1,14 @@
+.default {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .day {
+    margin-right: 6px;
+    font-weight: bold;
+  }
+  
+  .month {
+    margin-right: 6px;
+  }
+  

@@ -1,0 +1,9 @@
+.default {
+    margin: 0;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(227, 87, 81);
+    border-radius: 500px;
+    outline: none;
+  }
