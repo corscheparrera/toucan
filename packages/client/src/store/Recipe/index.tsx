@@ -1,16 +1,16 @@
 import React, { ReactNode } from "react";
-import { Recipe } from "../../models/Recipe";
+import { ListRecipeResponse } from "server";
 
-// Represents the state object, which includes an array of recipe.
+export type NewRecipe = Pick<ListRecipeResponse[number], "title">;
 export interface IState {
-  recipes: Array<Recipe>;
+  recipes: Array<NewRecipe>;
 }
 
 // Defines the actions available to manage the recipes.
 // It includes two methods: addRecipe to add a new recipe, and setRecipe to update an existing recipe.
 export interface IActions {
-  addRecipe(value: Recipe): void;
-  setRecipe(index: number, value: Recipe): void;
+  addRecipe(value: NewRecipe): void;
+  setRecipe(index: number, value: NewRecipe): void;
   deleteRecipe(index: number): void;
 }
 
@@ -36,10 +36,10 @@ class RecipeProvider extends React.Component<IRecipeProviderProps> {
   };
 
   actions = {
-    addRecipe: (value: Recipe): void => {
+    addRecipe: (value: NewRecipe): void => {
       this.setState({ recipes: [...this.state.recipes, value] });
     },
-    setRecipe: (index: number, value: Recipe): void => {
+    setRecipe: (index: number, value: NewRecipe): void => {
       const { recipes }: IState = this.state;
       recipes[index] = value;
 

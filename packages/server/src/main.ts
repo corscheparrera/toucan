@@ -1,11 +1,23 @@
-import express from 'express'
-const app = express()
-const port: number = 3000
+import * as trpcExpress from '@trpc/server/adapters/express'
+import cors from 'cors'
+import express, { Application } from 'express'
+import { createContext } from './lib/trpc'
+import { appRouter } from './router'
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const app: Application = express()
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+app.use(cors())
+
+app.use(
+  '/trpc',
+  trpcExpress.createExpressMiddleware({
+    router: appRouter,
+    createContext: createContext,
+  })
+)
+
+const PORT: number = Number(process.env.PORT) || 3000
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on Port: ${PORT}`)
 })
