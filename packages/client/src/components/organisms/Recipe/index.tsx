@@ -10,7 +10,7 @@ import styles from "./style.module.css";
 interface IProps {
   className?: string;
   recipeList: ListRecipeResponse | undefined;
-  deleteRecipe(index: string): void;
+  deleteRecipe(index: number): void;
   onInputChange(index: number, event: React.ChangeEvent<HTMLInputElement>): void;
 }
 const RecipeList: React.FC<IProps> = ({ className, recipeList, deleteRecipe, onInputChange }) => {
